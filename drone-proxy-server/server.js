@@ -4,8 +4,6 @@ require('./config/conf');
 var arDrone = require('ar-drone');
 global.droneClient = arDrone.createClient();
 
-// global.Promise = require('bluebird');
-
 // var handleErrors = require('./lib/handle_errors')
 var handlerRoutes = require('./routes/routes');
 
