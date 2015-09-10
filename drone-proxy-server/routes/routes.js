@@ -7,6 +7,6 @@ module.exports = function routes() {
   router.post('/land/', droneController.land)
   router.post('/stop/', droneController.stop)
   router.post('/move/:direction/:speed', droneController.move)
-  router.post('/animate/:animation/:duration', droneController.stop)
+  router.post('/animate/:animation/:duration', droneController.animate)
   return router.routes()
 }
