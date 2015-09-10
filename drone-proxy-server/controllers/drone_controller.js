@@ -9,6 +9,16 @@ exports.land = function* land(next) {
   droneClient.land();
 }
 
+exports.stop = function* stop(next) {
+  console.log('stop')
+  droneClient.stop();
+}
+
+exports.animate = function* animate(next) {
+  console.log('animate')
+  droneClient.animate(this.query.animation, this.query.duration);
+}
+
 exports.move = function* move(next) {
   var direction = this.query.direction;
   var speed = this.query.speed;
