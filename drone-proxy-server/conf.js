@@ -1,3 +1,3 @@
 global.conf = {
-  port: 6969
+    port: 6969
 }

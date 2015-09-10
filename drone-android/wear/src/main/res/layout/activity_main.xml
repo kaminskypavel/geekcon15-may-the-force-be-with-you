@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.wearable.view.BoxInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    tools:deviceIds="wear">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="48dp"
+            android:id="@+id/linearLayout">
+
+            <Button
+                android:id="@+id/land_button"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.5"
+                android:background="@color/yellow"
+                android:text="Land" />
+
+            <Button
+                android:id="@+id/takeoff_button"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.5"
+                android:background="@color/green"
+                android:text="Take Off" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/stop_button"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:background="@color/red"
+            android:text="STOP!"
+            android:textColor="@color/white"
+            android:layout_below="@+id/linearLayout"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true" />
+    </RelativeLayout>
+
+
+</android.support.wearable.view.BoxInsetLayout>
