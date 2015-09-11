@@ -13,17 +13,23 @@ import com.android.volley.toolbox.Volley;
  * Created by Pavel 'PK' Kaminsky on 09/2015.
  */
 public class DroneProxyService {
-    public static String SERVER_URL = "http://192.168.1.2:6969";
 
     RequestQueue queue;
+    String serverUrl;
 
-    public DroneProxyService(Context ctx) {
+    public DroneProxyService(Context ctx, String serverUrl) {
         queue = Volley.newRequestQueue(ctx);
+        this.serverUrl = serverUrl;
+    }
+
+
+    public void setServerUrl(String serverUrl) {
+        this.serverUrl = serverUrl;
     }
 
     private void call(int type, String url) {
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(type, SERVER_URL + url,
+        StringRequest stringRequest = new StringRequest(type, serverUrl + url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

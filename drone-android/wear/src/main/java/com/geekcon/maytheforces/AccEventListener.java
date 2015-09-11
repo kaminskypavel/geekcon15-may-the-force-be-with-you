@@ -12,6 +12,7 @@ public class AccEventListener implements SensorEventListener {
     private long lastUpdate = 0;
     private float last_x, last_y, last_z;
     private static final int SHAKE_THRESHOLD = 600;
+    private static final int SAMPLE_PER_SECOND = 3;
     private DroneProxyService droneService;
 
 
@@ -30,15 +31,12 @@ public class AccEventListener implements SensorEventListener {
 
             long curTime = System.currentTimeMillis();
 
-            if ((curTime - lastUpdate) > 1000) {
+            if ((curTime - lastUpdate) > 1000 / SAMPLE_PER_SECOND) {
                 String data = String.format("%.2f", x) + "/" + String.format("%.2f", y) + "/" + String.format("%.2f", z);
-                System.out.println(data);
-
                 droneService.message("xyz", data);
 
                 long diffTime = (curTime - lastUpdate);
                 lastUpdate = curTime;
-
                 float speed = Math.abs(x + y + z - last_x - last_y - last_z) / diffTime * 10000;
 
                 if (speed > SHAKE_THRESHOLD) {

@@ -8,10 +8,11 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.method.ScrollingMovementMethod;
-import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import butterknife.Bind;
@@ -21,8 +22,20 @@ import butterknife.OnClick;
 
 public class MobileMainActivity extends Activity {
 
+    private String serverUrl;
+
     @Bind(R.id.messageTextView)
     TextView messageTextView;
+
+    @Bind(R.id.ipEditText)
+    EditText ipEditText;
+
+    @OnClick(R.id.saveButton)
+    public void saveUrl() {
+        serverUrl = ipEditText.getText().toString();
+        droneService.setServerUrl(serverUrl);
+        Toast.makeText(this, "Saved new server", Toast.LENGTH_SHORT).show();
+    }
 
     @OnClick(R.id.clearButton)
     public void clearLog() {
@@ -66,7 +79,7 @@ public class MobileMainActivity extends Activity {
         ButterKnife.bind(this);
         messageTextView.setMovementMethod(new ScrollingMovementMethod());
 
-        droneService = new DroneProxyService(this);
+        droneService = new DroneProxyService(this, ipEditText.getText().toString());
         LocalBroadcastManager.getInstance(this).registerReceiver(receiver, new IntentFilter("wear-event"));
 
         appendMessage("Started..");
@@ -74,7 +87,8 @@ public class MobileMainActivity extends Activity {
 
 
     private void appendMessage(String text) {
-        messageTextView.setText(messageTextView.getText() + "\n" + new Date() + " : " + text);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
+        messageTextView.setText(messageTextView.getText() + "\n" + simpleDateFormat.format(new Date()) + " : " + text);
     }
 
     @Override

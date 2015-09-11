@@ -8,55 +8,21 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity">
 
-    <!--
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="48dp"
-                android:id="@+id/linearLayout">
-
-                <Button
-                    android:id="@+id/land_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="0.5"
-                    android:background="@color/yellow"
-                    android:text="Land" />
-
-                <Button
-                    android:id="@+id/takeoff_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="0.5"
-                    android:background="@color/green"
-                    android:text="Take Off" />
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/stop_button"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:background="@color/red"
-                android:text="STOP!"
-                android:textColor="@color/white"
-                android:layout_below="@+id/linearLayout"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentStart="true"
-                android:textSize="40sp"/>
-        </RelativeLayout>
-    -->
+    <LinearLayout
+        android:layout_width="0px"
+        android:layout_height="0px"
+        android:focusable="true"
+        android:focusableInTouchMode="true" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="fill_parent"
         android:layout_height="40dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/ipEditText"
         android:background="@color/green"
+        android:gravity="center"
         android:text="Wearable Output"
-        android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="20dp" />
 
@@ -64,7 +30,9 @@
         android:id="@+id/clearButton"
         android:layout_width="60dp"
         android:layout_height="40dp"
-        android:layout_alignRight="@id/textView"
+        android:layout_alignEnd="@+id/messageTextView"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
         android:background="@color/red"
         android:text="Clear"
         android:textAlignment="center"
@@ -75,11 +43,29 @@
         android:id="@+id/messageTextView"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:layout_above="@+id/clearButton"
         android:layout_below="@+id/textView"
         android:background="@color/yellow"
-        android:scrollbars="vertical"
-        android:maxLines = "10000"
         android:gravity="bottom"
+        android:maxLines="10000"
+        android:scrollbars="vertical"
         android:textColor="@color/black" />
+
+    <EditText
+        android:id="@+id/ipEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@+id/saveButton"
+        android:text="http://192.168.1.4:6969" />
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/textView"
+        android:layout_alignTop="@+id/ipEditText"
+        android:text="Save" />
 
 </RelativeLayout>
