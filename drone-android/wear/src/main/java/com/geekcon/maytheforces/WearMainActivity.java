@@ -6,12 +6,12 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.wearable.activity.WearableActivity;
+import android.view.WindowManager;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import retrofit.Retrofit;
 
-public class MainActivity extends WearableActivity {
+public class WearMainActivity extends WearableActivity {
 
     private SensorManager senSensorManager;
     private Sensor senAccelerometer;
@@ -20,31 +20,29 @@ public class MainActivity extends WearableActivity {
 
     @OnClick(R.id.land_button)
     public void land() {
-        droneService.land();
+        droneService.message("land");
     }
 
     @OnClick(R.id.takeoff_button)
     public void takeoff() {
-        droneService.takeoff();
+        droneService.message("takeoff");
     }
 
     @OnClick(R.id.stop_button)
     public void stop() {
-        droneService.stop();
+        droneService.message("stop");
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         ButterKnife.bind(this);
+        droneService = new DroneProxyService(this);
+        sensorListener = new AccEventListener(droneService);
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(DroneProxyService.SERVER_URL).build();
-        droneService = retrofit.create(DroneProxyService.class);
-
-        sensorListener = new AccEventListener();
         senSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         senAccelerometer = senSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         senSensorManager.registerListener(sensorListener, senAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);

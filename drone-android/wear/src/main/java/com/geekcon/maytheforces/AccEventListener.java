@@ -12,6 +12,12 @@ public class AccEventListener implements SensorEventListener {
     private long lastUpdate = 0;
     private float last_x, last_y, last_z;
     private static final int SHAKE_THRESHOLD = 600;
+    private DroneProxyService droneService;
+
+
+    public AccEventListener(DroneProxyService droneService) {
+        this.droneService = droneService;
+    }
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
@@ -22,11 +28,14 @@ public class AccEventListener implements SensorEventListener {
             float y = sensorEvent.values[1];
             float z = sensorEvent.values[2];
 
-//            System.out.print(x + " , " + y + " , " + z);
-
             long curTime = System.currentTimeMillis();
 
-            if ((curTime - lastUpdate) > 100) {
+            if ((curTime - lastUpdate) > 1000) {
+                String data = String.format("%.2f", x) + "/" + String.format("%.2f", y) + "/" + String.format("%.2f", z);
+                System.out.println(data);
+
+                droneService.message("xyz", data);
+
                 long diffTime = (curTime - lastUpdate);
                 lastUpdate = curTime;
 
